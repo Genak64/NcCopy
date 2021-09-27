@@ -576,9 +576,14 @@ private:
 			//Создаем новое имя файла
 			if (tmp.size>1) {
 				fname = string(tmp.filename);
+				cout << "fname:" << fname << endl;
 				tmp.oldname = fname;
+				cout << "tmp.oldname:" << tmp.oldname << endl;
 				newfname = CreateFilename(fname, tmp.cx + 1, tmp.cy + 1);
+				cout << "newfname:" << newfname << endl;
+				//tmp.newname=StringConverter::strToChar(newfname);
 				tmp.newname = newfname;
+				cout << "tmp.newname:" << tmp.newname << endl;
 				//tmp.newfilename=StringConverter::strToChar(newfname);
 
 			}
@@ -681,6 +686,7 @@ private:
 			CadrData *dimCadrOrigin;
 			//Определяем количество строк в файле
 			// и проверяем корректность открытия файла
+
 			counts = countStrOfFile(p.filename);
 			if (counts == -1) {
 				cout << "Ошибка! Файл не открыт\n\n";
@@ -702,6 +708,9 @@ private:
 			cout << "0-" << "x max: " << p.xmax << endl;
 			cout << "0-" << "y max: " << p.ymax << endl;
 			//формируем новое имя файла
+	//		strcpy(nfilename, (p.newname).c_str());
+
+		//	nfilename = (p.newname).c_str();
 			nfilename = StringConverter::strToChar(p.newname);
 			cout << "Результат записан в файл:" << nfilename << endl;
 			//Записываем оригинальную программу в новый файл

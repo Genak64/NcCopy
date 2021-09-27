@@ -457,14 +457,15 @@ private:
 	}
 	//Записывает файл построчно из массива
 	//возвращает ошибку -1 если файл не создан
-	int writeArrayStr2file(bool newfile, char *pathfile, int counts, string *AS)
+	int writeArrayStr2file(bool newfile, string pathfile, int counts, string* AS)
+//	int writeArrayStr2file(bool newfile, char *pathfile, int counts, string *AS)
 	{
 		int i;
 		//Открываем файл на запись	
 		ofstream fileo;
 		if (newfile == true) {
 			//	ofstream fileo(pathfile);
-			fileo.open(pathfile, ios::out);
+			fileo.open(pathfile.c_str(), ios::out);
 		}
 		else {
 			//	ofstream fileo(pathfile,ios_base::app);
@@ -636,7 +637,7 @@ private:
 			//Получаем имя файла для записи
 			nfilename =StringConverter::strToChar(namefile);
 			//Дописываем стороковое представление копии программы со смещением в новый файл
-			err = writeArrayStr2file(0, nfilename, counts, ArrayStrCopy);
+			err = writeArrayStr2file(0, namefile /*nfilename*/, counts, ArrayStrCopy);
 			return;
 		}
 		//Создает копии по X и/или У, дописывает результат в файл
@@ -712,9 +713,9 @@ private:
 
 		//	nfilename = (p.newname).c_str();
 			nfilename = StringConverter::strToChar(p.newname);
-			cout << "Результат записан в файл:" << nfilename << endl;
+			cout << "Результат записан в файл:" << p.newname << endl;
 			//Записываем оригинальную программу в новый файл
-			err = writeArrayStr2file(1, nfilename, counts, ArrayStr);
+			err = writeArrayStr2file(1, p.newname/*nfilename*/, counts, ArrayStr);
 			if (err == -1) {
 				cout << "Ошибка записи в файл." << endl;
 				return;

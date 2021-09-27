@@ -458,7 +458,6 @@ private:
 	//Записывает файл построчно из массива
 	//возвращает ошибку -1 если файл не создан
 	int writeArrayStr2file(bool newfile, string pathfile, int counts, string* AS)
-//	int writeArrayStr2file(bool newfile, char *pathfile, int counts, string *AS)
 	{
 		int i;
 		//Открываем файл на запись	
@@ -681,7 +680,6 @@ private:
 		*/
 		void CopyProgram(progData p) {
 			int err, i, j, g, cx = 0, cy = 0;
-			char *nfilename;//имя файла
 			int counts; // количество элементов в массиве AS
 			string *ArrayStr; // указатель на тип string
 			CadrData *dimCadrOrigin;
@@ -708,14 +706,9 @@ private:
 			cout << "Габариты оригинала:" << endl;
 			cout << "0-" << "x max: " << p.xmax << endl;
 			cout << "0-" << "y max: " << p.ymax << endl;
-			//формируем новое имя файла
-	//		strcpy(nfilename, (p.newname).c_str());
-
-		//	nfilename = (p.newname).c_str();
-			nfilename = StringConverter::strToChar(p.newname);
 			cout << "Результат записан в файл:" << p.newname << endl;
 			//Записываем оригинальную программу в новый файл
-			err = writeArrayStr2file(1, p.newname/*nfilename*/, counts, ArrayStr);
+			err = writeArrayStr2file(1, p.newname, counts, ArrayStr);
 			if (err == -1) {
 				cout << "Ошибка записи в файл." << endl;
 				return;

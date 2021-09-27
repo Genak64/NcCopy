@@ -457,14 +457,14 @@ private:
 	}
 	//Записывает файл построчно из массива
 	//возвращает ошибку -1 если файл не создан
-	int writeArrayStr2file(bool newfile, char *pathfile, int counts, string *AS)
+	int writeArrayStr2file(bool newfile, string pathfile, int counts, string* AS)
 	{
 		int i;
 		//Открываем файл на запись	
 		ofstream fileo;
 		if (newfile == true) {
 			//	ofstream fileo(pathfile);
-			fileo.open(pathfile, ios::out);
+			fileo.open(pathfile.c_str(), ios::out);
 		}
 		else {
 			//	ofstream fileo(pathfile,ios_base::app);
@@ -576,9 +576,14 @@ private:
 			//Создаем новое имя файла
 			if (tmp.size>1) {
 				fname = string(tmp.filename);
+				cout << "fname:" << fname << endl;
 				tmp.oldname = fname;
+				cout << "tmp.oldname:" << tmp.oldname << endl;
 				newfname = CreateFilename(fname, tmp.cx + 1, tmp.cy + 1);
+				cout << "newfname:" << newfname << endl;
+				//tmp.newname=StringConverter::strToChar(newfname);
 				tmp.newname = newfname;
+				cout << "tmp.newname:" << tmp.newname << endl;
 				//tmp.newfilename=StringConverter::strToChar(newfname);
 
 			}
@@ -631,7 +636,7 @@ private:
 			//Получаем имя файла для записи
 			nfilename =StringConverter::strToChar(namefile);
 			//Дописываем стороковое представление копии программы со смещением в новый файл
-			err = writeArrayStr2file(0, nfilename, counts, ArrayStrCopy);
+			err = writeArrayStr2file(0, namefile /*nfilename*/, counts, ArrayStrCopy);
 			return;
 		}
 		//Создает копии по X и/или У, дописывает результат в файл
@@ -675,12 +680,12 @@ private:
 		*/
 		void CopyProgram(progData p) {
 			int err, i, j, g, cx = 0, cy = 0;
-			char *nfilename;//имя файла
 			int counts; // количество элементов в массиве AS
 			string *ArrayStr; // указатель на тип string
 			CadrData *dimCadrOrigin;
 			//Определяем количество строк в файле
 			// и проверяем корректность открытия файла
+
 			counts = countStrOfFile(p.filename);
 			if (counts == -1) {
 				cout << "Ошибка! Файл не открыт\n\n";
@@ -701,11 +706,9 @@ private:
 			cout << "Габариты оригинала:" << endl;
 			cout << "0-" << "x max: " << p.xmax << endl;
 			cout << "0-" << "y max: " << p.ymax << endl;
-			//формируем новое имя файла
-			nfilename = StringConverter::strToChar(p.newname);
-			cout << "Результат записан в файл:" << nfilename << endl;
+			cout << "Результат записан в файл:" << p.newname << endl;
 			//Записываем оригинальную программу в новый файл
-			err = writeArrayStr2file(1, nfilename, counts, ArrayStr);
+			err = writeArrayStr2file(1, p.newname, counts, ArrayStr);
 			if (err == -1) {
 				cout << "Ошибка записи в файл." << endl;
 				return;

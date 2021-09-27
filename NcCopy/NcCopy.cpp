@@ -8,7 +8,6 @@ using namespace std;
 
 int main(int size, char *str[])
 {
-
 	// size- number of arguments
 	// char * str [] - string array with arguments
 
